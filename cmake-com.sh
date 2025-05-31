@@ -1,0 +1,36 @@
+# PATCH FindNCCL.cmake to use EBROOTNCCL
+# PATCH 3rdPartyTools.cmake: add nccl to the list of needed tools and the list of their descriptions
+cmake \
+   -DCMAKE_INSTALL_PREFIX=/home/svassili/.local/easybuild/software/2023/x86-64-v4/CUDA/gcc12/openmpi4/cuda12.2/amber/24.1 \
+   -DCMAKE_BUILD_TYPE=Release \
+   -DCMAKE_INSTALL_LIBDIR:PATH=lib \
+   -DCMAKE_VERBOSE_MAKEFILE=ON \
+   -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF \
+   -DCMAKE_CUDA_HOST_COMPILER=/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcc12/openmpi/4.1.5/bin/mpicxx \
+   -DCMAKE_CUDA_COMPILER=/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v3/Core/cudacore/12.2.2/bin/nvcc \
+   -DCMAKE_CUDA_ARCHITECTURES="70;75;80;86;90" \
+   -DBOOST_ROOT=/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcc12/boost/1.82.0 \
+   -DBoost_NO_SYSTEM_PATHS=ON \
+   -DPython3_EXECUTABLE=$EBROOTPYTHON/bin/python  \
+   -DPython_EXECUTABLE=$EBROOTPYTHON/bin/python  \
+   -DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python  \
+   -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+   -DENABLE_XHOST=OFF \
+   -DCMAKE_SKIP_INSTALL_RPATH=ON  \
+   -DBUILD_QUICK=FALSE \
+   -DNCCL=TRUE \
+   -DPMEMD_ONLY=TRUE \
+   -DMPI=TRUE  \
+   -DOPENMP=TRUE \
+   -DBLA_VENDOR=FlexiBLAS \
+   -DCUDA=TRUE \
+   -DFORCE_EXTERNAL_LIBS='nccl;netcdf' \
+   -DDOWNLOAD_MINICONDA=FALSE \
+   -DPYTHON_EXECUTABLE=/cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/Compiler/gcccore/python/3.11.5/bin/python \
+   -DUSE_FFT=TRUE  \
+   -DCHECK_UPDATES=FALSE \
+   -DAPPLY_UPDATES=FALSE  \
+   -DTRUST_SYSTEM_LIBS=TRUE \
+   -DCOLOR_CMAKE_MESSAGES=FALSE \
+   -DINSTALL_TESTS=FALSE \
+   -DCOMPILER=AUTO ../
