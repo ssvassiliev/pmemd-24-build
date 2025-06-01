@@ -1,6 +1,4 @@
-# FindNCCL.cmake module is not setting nccl_ENABLED and 
-# nccl_ENABLED is not set anywhere else. 
-# Bugfix - add  set(nccl_ENABLED TRUE) in FindNCCL.cmake
+# CPU xray code fails to compile because type of some variables is not defined in the code with implicit none 
 
 name = 'Amber'
 local_amber_ver = 24
@@ -29,6 +27,7 @@ patches = [
     'AmberTools-22_CMake-FlexiBLAS.patch',    
     'Amber-24-fix_NCCL.patch',
     'AmberTools-20_fix_missing_MPI_LIBRARY_error.patch',
+    'Amber-24-fix_xray_missing-type.patch',
 ]
 checksums = [
     {'pmemd24.tar.bz2': '09cde63941e7e567773ef0d8831be72fe782d6042b45f5be82bef207bde9f682'},
@@ -37,10 +36,11 @@ checksums = [
     {'Amber-24-fix_NCCL.patch': 'ca8ca1e7089ab5afa3eb5e53f79a06cf35688a4bf66861700ca392344e73696e'},
     {'AmberTools-20_fix_missing_MPI_LIBRARY_error.patch':
      '0b89a0624167bc23876bcdefcb1055f591e38e3bd559a71d5749e342bd311acc'},
+    {'Amber-24-fix_xray_missing-type.patch': '5e7b5ba0018ee49eb2ba316414364757c01a038f99aad3872e8b53f3269a3766'},
 ]
 
 builddependencies = [
-    ('CMake', '3.31.0'),
+    ('CMake', '3.27.7'),
     ('CUDA', '12.6'),
     ('NCCL', '2.26.2','',('gcccorecuda','2023a')),    
     ('Python', '3.11'),
@@ -59,6 +59,7 @@ runtest = True
 #static = False
 configopts = ' ' 
 configopts += ' -DNCCL=TRUE'
+configopts += ' -DNCUDA=FALSE'
 configopts += ' -DBUILD_QUICK=FALSE'
 configopts += ' -DPMEMD_ONLY=TRUE'
 configopts += ' -DENABLE_PMEMD_XRAY_UNIT_TESTS=FALSE'
@@ -74,6 +75,9 @@ postinstallcmds = [
     ]),
 ]
 
+
+sanity_check_paths = {'files': [], 'dirs': []}
+sanity_check_commands = []
 
 modextravars = {
     'AMBERHOME': '%(installdir)s',
