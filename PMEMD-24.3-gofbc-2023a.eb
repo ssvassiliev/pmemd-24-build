@@ -47,7 +47,7 @@ builddependencies = [
     ('CUDA', '12.6'),
     ('NCCL', '2.26.2','',('gcccorecuda','2023a')),    
     ('Python', '3.11.5'),
-    ('SciPy-Stack', '2023b'), 
+    ('SciPy-Stack', '2024b'), 
 ]
 
 dependencies = [
@@ -62,11 +62,7 @@ runtest = False
 #static = False
 configopts = ' ' 
 configopts += ' -DNCCL=TRUE'
-configopts += ' -DNCUDA=FALSE'
-configopts += ' -DBUILD_QUICK=FALSE'
 configopts += ' -DPMEMD_ONLY=TRUE'
-configopts += ' -DENABLE_PMEMD_XRAY_UNIT_TESTS=FALSE'
-configopts += ' -DENABLE_PMEMD_XRAY_UNIT_TESTS=FALSE' 
 
 postinstallcmds = [
     ' '.join([
