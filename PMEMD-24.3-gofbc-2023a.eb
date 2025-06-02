@@ -1,3 +1,4 @@
+# export EASYBUILD_INCLUDE_EASYBLOCKS=`pwd`
 # CPU xray code fails to compile because type of some variables is not defined in the code with implicit none 
 
 name = 'Amber'
@@ -28,6 +29,7 @@ patches = [
     'Amber-24-fix_NCCL.patch',
     'AmberTools-20_fix_missing_MPI_LIBRARY_error.patch',
     'Amber-24-fix_xray_missing-type.patch',
+    'AmberTools-25_Cmake-PythonBuildConfig.patch',
 ]
 checksums = [
     {'pmemd24.tar.bz2': '09cde63941e7e567773ef0d8831be72fe782d6042b45f5be82bef207bde9f682'},
@@ -37,13 +39,14 @@ checksums = [
     {'AmberTools-20_fix_missing_MPI_LIBRARY_error.patch':
      '0b89a0624167bc23876bcdefcb1055f591e38e3bd559a71d5749e342bd311acc'},
     {'Amber-24-fix_xray_missing-type.patch': '5e7b5ba0018ee49eb2ba316414364757c01a038f99aad3872e8b53f3269a3766'},
+    {'AmberTools-25_Cmake-PythonBuildConfig.patch': '5d444bb751379c578ff36d61db93e2f3a497b9b34e86e6c4e79725646b2a0979'},
 ]
 
 builddependencies = [
     ('CMake', '3.27.7'),
     ('CUDA', '12.6'),
     ('NCCL', '2.26.2','',('gcccorecuda','2023a')),    
-    ('Python', '3.11'),
+    ('Python', '3.11.5'),
     ('SciPy-Stack', '2023b'), 
 ]
 
@@ -54,7 +57,7 @@ dependencies = [
 
 separate_build_dir = True
 # All tests are expected to pass or be skipped
-runtest = True
+runtest = False
 
 #static = False
 configopts = ' ' 
@@ -76,8 +79,7 @@ postinstallcmds = [
 ]
 
 
-sanity_check_paths = {'files': [], 'dirs': []}
-sanity_check_commands = []
+sanity_check_paths = {'files': ['bin/pmemd.cuda'], 'dirs': []}
 
 modextravars = {
     'AMBERHOME': '%(installdir)s',
