@@ -47,7 +47,7 @@ checksums = [
 
 builddependencies = [
     ('CMake', '3.27.7'),
-    ('NCCL', '2.18.3','',('gcccorecuda','2023a')),    
+    ('NCCL', '2.26.2','',('gcccorecuda','2023a')),    
     ('Python', '3.11.5'),
     ('SciPy-Stack', '2024b'), 
 ]
