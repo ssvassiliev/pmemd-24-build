@@ -65,6 +65,8 @@ runtest = False
 configopts = ' ' 
 configopts += ' -DNCCL=TRUE'
 configopts += ' -DPMEMD_ONLY=TRUE'
+configopts += ' -DBUILD_PYTHON=FALSE'
+configopts += ' -DBUILD_TOOLS=FALSE'
 
 postinstallcmds = [
     ' '.join([
